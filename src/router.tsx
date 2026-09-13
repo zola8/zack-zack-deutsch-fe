@@ -4,6 +4,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/HomePage';
 import RootLayout from './layouts/RootLayout';
 import AboutPage from './pages/AboutPage';
+import TranslationPage from './pages/TranslationPage';
 
 
 export const router = createBrowserRouter([
@@ -13,6 +14,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'about', element: <AboutPage /> },
+      { path: 'translate', element: <TranslationPage /> },
+      
       { path: '*', element: <NotFoundPage /> },
     ],
   },
