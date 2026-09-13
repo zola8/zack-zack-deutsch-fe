@@ -1,21 +1,27 @@
 import { Link } from 'react-router';
+import { Gloss } from '../components/Gloss';
 
 export default function NotFoundPage() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="text-center">
-        <p className="text-7xl font-bold text-gray-900">404</p>
-        <h1 className="mt-4 text-2xl font-semibold text-gray-700">
-          Page not found
-        </h1>
-        <p className="mt-2 text-gray-500">
-          The page you're looking for doesn't exist.
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="max-w-md px-4 text-center">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">
+          Fehler
         </p>
+
+        <p className="mt-2 text-8xl font-black leading-none tracking-tight text-black">
+          404
+        </p>
+
+        <p className="mt-6 text-lg text-gray-700">
+          <Gloss de="Diese Seite existiert nicht" en="this page doesn't exist." />
+        </p>
+
         <Link
           to="/"
-          className="mt-6 inline-block rounded-lg bg-gray-900 px-5 py-2.5 text-white hover:bg-gray-700"
+          className="mt-8 inline-block rounded-xl bg-black px-6 py-3 font-semibold text-german-gold transition-opacity hover:opacity-80"
         >
-          Back to home
+          Zurück zur Startseite
         </Link>
       </div>
     </div>
