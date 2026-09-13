@@ -1,20 +1,17 @@
-import { Gloss } from '../components/Gloss';
 import { Stripe } from '../components/Stripe';
 
 export function Footer() {
   return (
-    <footer className="bg-gray-800">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-4 py-8 text-center">
-        <Stripe className="h-1 w-24" />
-        <p className="text-sm text-gray-300">
-          © 2026, zack-zack-deutsch
-        </p>
-        <p className="text-xs text-gray-400">
-          <Gloss
-            de="Deutsch lernen — zack, zack."
-            en="Learn German — quick, quick."
-          />
-        </p>
+    <footer className="mt-auto border-t border-black/5 bg-olive-50/80">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-6 py-8 text-center">
+        <div className="flex items-center gap-2.5">
+          <Stripe className="h-2 w-9 rounded-sm" />
+          <span className="text-sm font-bold tracking-tight text-black">
+            zack-zack-deutsch
+          </span>
+        </div>
+
+        <p className="text-xs text-black/40">© 2026, Zoltán M.</p>
       </div>
     </footer>
   );

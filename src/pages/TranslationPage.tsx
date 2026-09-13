@@ -1,5 +1,6 @@
 import { useState, type SubmitEvent } from 'react';
 import { requestTranslation } from '../api/translation';
+import { Gloss } from '../components/Gloss';
 import { EngineSelect } from '../components/translation/EngineSelect';
 import { SourceInput } from '../components/translation/SourceInput';
 import type {
@@ -21,10 +22,8 @@ export default function TranslationPage() {
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!hasInput || loading) return;
-
     setStatus('loading');
     setResult(null);
-
     try {
       const data = await requestTranslation({ text, file, engine });
       setResult(data);
@@ -35,14 +34,17 @@ export default function TranslationPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <h1 className="text-3xl font-black tracking-tight text-black">
+    <div className="mx-auto max-w-4xl">
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-black/50">
+        <Gloss de="Übersetzen" en="translate" />
+      </p>
+      <h1 className="mt-2 text-4xl font-black tracking-tight text-black">
         Textübersetzung
       </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="mt-6 rounded-box border border-gray-200 bg-white p-6"
+        className="mt-8 rounded-xl border border-black/10 bg-white p-6 shadow-sm"
       >
         <SourceInput
           text={text}
@@ -58,24 +60,27 @@ export default function TranslationPage() {
         <button
           type="submit"
           disabled={!hasInput || loading}
-          className="mt-6 w-full rounded-control bg-black px-6 py-3 font-semibold text-german-gold transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
+          className="mt-6 w-full rounded-md bg-black px-6 py-3 font-semibold text-german-gold transition-all enabled:hover:-translate-y-0.5 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {loading ? 'Übersetzen...' : 'Übersetzen'}
+          {loading ? 'Übersetzen…' : 'Übersetzen'}
         </button>
       </form>
 
       {status === 'error' && (
-        <p className="mt-4 rounded-control bg-german-red/10 px-4 py-3 text-sm font-medium text-german-red">
-          Etwas ist schiefgelaufen. Bitte versuche es erneut.
+        <p className="mt-4 rounded-lg border border-german-red/20 bg-german-red/10 px-4 py-3 text-sm font-medium text-german-red">
+          <Gloss
+            de="Etwas ist schiefgelaufen. Bitte versuche es erneut."
+            en="Something went wrong. Please try again."
+          />
         </p>
       )}
 
       {result && (
-        <div className="mt-6 rounded-box border border-gray-200 bg-olive-50 p-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
-            Übersetzung
+        <div className="mt-6 rounded-xl border border-black/10 bg-olive-100 p-6 shadow-sm">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-black/50">
+            <Gloss de="Übersetzung" en="translation" />
           </h2>
-          <p className="mt-3 whitespace-pre-wrap leading-relaxed text-gray-900">
+          <p className="mt-3 whitespace-pre-wrap leading-relaxed text-black">
             {result.translation}
           </p>
         </div>
