@@ -20,13 +20,13 @@ const menuItems: MenuItem[] = [
 
 const desktopNavLinkClass = ({ isActive }: { isActive: boolean }) =>
   `rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors ${isActive
-    ? 'bg-black text-white'
+    ? 'bg-german-gold/30 text-black'
     : 'text-black/60 hover:bg-black/5 hover:text-black'
   }`;
 
 const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
   `block rounded-md px-3 py-2 text-base font-medium transition-colors ${isActive
-    ? 'bg-black text-white'
+    ? 'bg-german-gold/30 text-black'
     : 'text-black/70 hover:bg-black/5 hover:text-black'
   }`;
 
@@ -71,56 +71,9 @@ function CloseIcon() {
   );
 }
 
-function AuthButton({ className = '', onClick }: { className?: string; onClick?: () => void }) {
-  const { user, loading, isLoggedIn } = useAuth();
-
-  const baseClass =
-    'inline-flex items-center rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors';
-
-  if (loading) {
-    return (
-      <span
-        className={`${baseClass} text-transparent bg-black/5 animate-pulse ${className}`}
-      >
-        ...
-      </span>
-    );
-  }
-
-  if (isLoggedIn) {
-    return (
-      <span className={`inline-flex items-center gap-2 ${className}`}>
-        {user?.full_name && (
-          <span className="hidden text-sm text-black/60 lg:inline">
-            {user.full_name}
-          </span>
-        )}
-        <button
-          type="button"
-          onClick={() => {
-            onClick?.();
-            logout();
-          }}
-          className={`${baseClass} border border-black/10 bg-white text-black/70 hover:bg-black/5 hover:text-black`}
-        >
-          Abmelden
-        </button>
-      </span>
-    );
-  }
-
-  return (
-    <Link
-      to="/login"
-      onClick={onClick}
-      className={`${baseClass} bg-black text-white hover:bg-black/85 ${className}`}
-    >
-      Anmelden
-    </Link>
-  );
-}
-
 function DesktopNav() {
+  const { loading, isLoggedIn } = useAuth();
+
   return (
     <nav className="hidden items-center gap-1.5 md:flex">
       {menuItems.map((item) => (
@@ -133,17 +86,39 @@ function DesktopNav() {
           {item.label}
         </NavLink>
       ))}
-      <AuthButton className="ml-2" />
+
+      {loading ? (
+        <span className="rounded-md px-3.5 py-1.5 text-sm font-medium text-transparent bg-black/5 animate-pulse">
+          ...
+        </span>
+      ) : isLoggedIn ? (
+        <button
+          type="button"
+          onClick={logout}
+          className="rounded-md px-3.5 py-1.5 text-sm font-medium text-black/60 transition-colors hover:bg-black/5 hover:text-black"
+        >
+          Abmelden
+        </button>
+      ) : (
+        <NavLink
+          to="/login"
+          className={desktopNavLinkClass}
+        >
+          Anmelden
+        </NavLink>
+      )}
     </nav>
   );
 }
 
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { loading, isLoggedIn } = useAuth();
+
   return (
     <div
       id="mobile-menu"
       className={`${open ? 'block' : 'hidden'
-        } border-t border-black/10 bg-white px-4 pb-4 pt-3 md:hidden`}
+        } border-t border-german-gold/30 bg-german-gold/10 px-4 pb-4 pt-3 md:hidden`}
     >
       <nav className="flex flex-col gap-1">
         {menuItems.map((item) => (
@@ -157,10 +132,32 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             {item.label}
           </NavLink>
         ))}
+
+        {loading ? (
+          <span className="block rounded-md px-3 py-2 text-base font-medium text-transparent bg-black/5 animate-pulse">
+            ...
+          </span>
+        ) : isLoggedIn ? (
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              logout();
+            }}
+            className="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
+          >
+            Abmelden
+          </button>
+        ) : (
+          <NavLink
+            to="/login"
+            onClick={onClose}
+            className={mobileNavLinkClass}
+          >
+            Anmelden
+          </NavLink>
+        )}
       </nav>
-      <div className="mt-3 border-t border-black/10 pt-3">
-        <AuthButton onClick={onClose} className="w-full justify-center" />
-      </div>
     </div>
   );
 }
@@ -175,7 +172,7 @@ export default function RootLayout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white text-black">
-      <header className="sticky top-0 z-20 border-b border-black/10 bg-white">
+      <header className="sticky top-0 z-20 border-b border-german-gold/30 bg-german-gold/10">
         <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-6">
           <Logo onClick={() => setMobileMenuOpen(false)} />
           <DesktopNav />
