@@ -2,36 +2,29 @@ import { Link } from 'react-router';
 import { Gloss } from '../components/Gloss';
 import { Stripe } from '../components/Stripe';
 
+
 export default function HomePage() {
   return (
-    <section className="mx-auto max-w-3xl pb-20 pt-16 text-center">
-      <Stripe className="mx-auto h-2 w-24 rounded-full" />
+    <section className="mx-auto flex min-h-[55vh] max-w-xl flex-col items-center justify-center text-center">
+      <Stripe className="h-1.5 w-12 rounded-full" />
 
-      <h1 className="mt-8 text-5xl font-black tracking-tight text-black sm:text-6xl">
+      <h1 className="mt-6 text-4xl font-semibold tracking-tight text-black sm:text-5xl">
         Deutsch? Zack, zack!
       </h1>
 
-      <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-black/70">
+      <p className="mt-4 max-w-md text-base leading-relaxed text-black/60">
         <Gloss
-          de="Lerne Deutsch schnell und ohne Umwege."
-          en="Learn German fast — no detours."
+          de="Übersetze Texte und lerne Deutsch Schritt für Schritt."
+          en="Translate texts and learn German step by step."
         />
       </p>
 
-      <div className="mt-10 flex items-center justify-center gap-3">
-        <Link
-          to="/translate"
-          className="rounded-md bg-black px-5 py-2.5 font-semibold text-german-gold transition-all hover:-translate-y-0.5 hover:shadow-lg"
-        >
-          Jetzt übersetzen
-        </Link>
-        <Link
-          to="/about"
-          className="rounded-md border border-black/15 px-5 py-2.5 font-semibold text-black/70 transition-colors hover:bg-black/5 hover:text-black"
-        >
-          Mehr erfahren
-        </Link>
-      </div>
+      <Link
+        to="/translate"
+        className="mt-8 rounded-md bg-black px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-black/85"
+      >
+        Jetzt übersetzen
+      </Link>
     </section>
   );
 }

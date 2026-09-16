@@ -1,81 +1,200 @@
-import { NavLink, Outlet, Link } from 'react-router';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { Stripe } from '../components/Stripe';
 import { Footer } from './Footer';
-import { isAuthenticated, logout } from '../utils/auth';
-import { Gloss } from '../components/Gloss';
+import { useAuth } from '../auth/AuthContext';
+import { logout } from '../utils/auth';
 
-const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-  `rounded-md px-3.5 py-1.5 text-sm font-semibold transition-colors ${isActive ? 'bg-black text-german-gold' : 'text-black/60 hover:bg-black/5 hover:text-black'
+type MenuItem = {
+  to: string;
+  label: string;
+  end?: boolean;
+};
+
+const menuItems: MenuItem[] = [
+  { to: '/', label: 'Start', end: true },
+  { to: '/translate', label: 'Übersetzen' },
+  { to: '/about', label: 'Über' },
+  { to: '/me', label: 'Profil' },
+];
+
+const desktopNavLinkClass = ({ isActive }: { isActive: boolean }) =>
+  `rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors ${isActive
+    ? 'bg-black text-white'
+    : 'text-black/60 hover:bg-black/5 hover:text-black'
   }`;
 
-function Logo() {
+const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
+  `block rounded-md px-3 py-2 text-base font-medium transition-colors ${isActive
+    ? 'bg-black text-white'
+    : 'text-black/70 hover:bg-black/5 hover:text-black'
+  }`;
+
+function Logo({ onClick }: { onClick?: () => void }) {
   return (
-    <NavLink to="/" className="flex items-center gap-2.5">
-      <Stripe className="h-2 w-9 rounded-sm" />
-      <span className="text-lg font-bold tracking-tight text-black">
+    <NavLink to="/" onClick={onClick} className="flex items-center gap-2.5">
+      <Stripe className="h-1.5 w-7 rounded-full" />
+      <span className="text-base font-semibold tracking-tight text-black">
         zack-zack-deutsch
       </span>
     </NavLink>
   );
 }
 
-function NavLinks() {
-  const isLoggedIn = isAuthenticated();
-
+function MenuIcon() {
   return (
-    <>
-      <NavLink to="/" end className={navLinkClass}>Start</NavLink>
-      <NavLink to="/translate" className={navLinkClass}>Übersetzen</NavLink>
-      <NavLink to="/about" className={navLinkClass}>Über</NavLink>
-
-      {isLoggedIn && (
-        <NavLink to="/me" className={navLinkClass}>Profil</NavLink>
-      )}
-    </>
+    <svg
+      className="h-5 w-5"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+    >
+      <path d="M3 5h14M3 10h14M3 15h14" />
+    </svg>
   );
 }
 
-function AuthButton() {
-  const isLoggedIn = isAuthenticated();
+function CloseIcon() {
+  return (
+    <svg
+      className="h-5 w-5"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+    >
+      <path d="M5 5l10 10M15 5L5 15" />
+    </svg>
+  );
+}
+
+function AuthButton({ className = '', onClick }: { className?: string; onClick?: () => void }) {
+  const { user, loading, isLoggedIn } = useAuth();
+
+  const baseClass =
+    'inline-flex items-center rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors';
+
+  if (loading) {
+    return (
+      <span
+        className={`${baseClass} text-transparent bg-black/5 animate-pulse ${className}`}
+      >
+        ...
+      </span>
+    );
+  }
 
   if (isLoggedIn) {
     return (
-      <button
-        onClick={logout}
-        className="ml-2 rounded-md border border-black/10 px-3.5 py-1.5 text-sm font-semibold text-black/70 transition-colors hover:bg-black/5 hover:text-black"
-      >
-        <Gloss de="Abmelden" en="Log out" />
-      </button>
+      <span className={`inline-flex items-center gap-2 ${className}`}>
+        {user?.full_name && (
+          <span className="hidden text-sm text-black/60 lg:inline">
+            {user.full_name}
+          </span>
+        )}
+        <button
+          type="button"
+          onClick={() => {
+            onClick?.();
+            logout();
+          }}
+          className={`${baseClass} border border-black/10 bg-white text-black/70 hover:bg-black/5 hover:text-black`}
+        >
+          Abmelden
+        </button>
+      </span>
     );
   }
 
   return (
     <Link
       to="/login"
-      className="ml-2 rounded-md bg-black px-3.5 py-1.5 text-sm font-semibold text-german-gold transition-colors hover:bg-black/80"
+      onClick={onClick}
+      className={`${baseClass} bg-black text-white hover:bg-black/85 ${className}`}
     >
-      <Gloss de="Anmelden" en="Log in" />
+      Anmelden
     </Link>
   );
 }
 
-export default function RootLayout() {
+function DesktopNav() {
   return (
-    <div className="flex min-h-screen flex-col bg-olive-25">
-      <header className="sticky top-0 z-10 border-b border-black/5 bg-olive-50/80 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Logo />
-          <nav className="flex items-center gap-1.5">
-            <NavLinks />
-            <AuthButton />
-          </nav>
-        </div>
-      </header>
+    <nav className="hidden items-center gap-1.5 md:flex">
+      {menuItems.map((item) => (
+        <NavLink
+          key={item.to}
+          to={item.to}
+          end={item.end}
+          className={desktopNavLinkClass}
+        >
+          {item.label}
+        </NavLink>
+      ))}
+      <AuthButton className="ml-2" />
+    </nav>
+  );
+}
 
-      <main className="mx-auto w-full max-w-7xl flex-1 px-6 py-10">
+function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+  return (
+    <div
+      id="mobile-menu"
+      className={`${open ? 'block' : 'hidden'
+        } border-t border-black/10 bg-white px-4 pb-4 pt-3 md:hidden`}
+    >
+      <nav className="flex flex-col gap-1">
+        {menuItems.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            onClick={onClose}
+            className={mobileNavLinkClass}
+          >
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
+      <div className="mt-3 border-t border-black/10 pt-3">
+        <AuthButton onClick={onClose} className="w-full justify-center" />
+      </div>
+    </div>
+  );
+}
+
+export default function RootLayout() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  return (
+    <div className="flex min-h-screen flex-col bg-white text-black">
+      <header className="sticky top-0 z-20 border-b border-black/10 bg-white">
+        <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-6">
+          <Logo onClick={() => setMobileMenuOpen(false)} />
+          <DesktopNav />
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            className="inline-flex items-center justify-center rounded-md p-2 text-black/70 transition-colors hover:bg-black/5 hover:text-black md:hidden"
+          >
+            <span className="sr-only">Menü umschalten</span>
+            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
+        <MobileMenu open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+      </header>
+      <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
         <Outlet />
       </main>
-
       <Footer />
     </div>
   );

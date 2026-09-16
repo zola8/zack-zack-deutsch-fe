@@ -1,10 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-olive-25: #fbfcf6;
-  --color-olive-50: #f4f6e8;
-  --color-olive-100: #e9ecda;
-  --color-olive-200: #dfe3c7;
-  --color-german-red: #dd0000;
-  --color-german-gold: #ffce00;
+  --color-paper: #fcfcfa;
+  --color-surface: #ffffff;
+  --color-ink: #171717;
+
+  --color-german-red: #b91c1c;
+  --color-german-gold: #d39e00;
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-ink antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-german-gold);
+    outline-offset: 2px;
+  }
 }
