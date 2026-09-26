@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
+import Navbar from './navbar/Navbar';
+import Sidebar from './sidebar/Sidebar';
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
-      
+
       <aside
         className={`
-          transition-all duration-300 ease-in-out flex-shrink-0 overflow-hidden
-          ${isSidebarOpen ? 'w-64' : 'w-0'}
+          sidebar-bg text-white transition-all duration-300 ease-in-out flex-shrink-0 overflow-hidden
+          ${isSidebarOpen ? 'w-[400px]' : 'w-0'}
           fixed inset-y-0 left-0 z-40 lg:relative lg:z-auto
         `}
       >
@@ -19,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </aside>
 
       {isSidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-30 lg:hidden transition-opacity"
           onClick={() => setIsSidebarOpen(false)}
         />
