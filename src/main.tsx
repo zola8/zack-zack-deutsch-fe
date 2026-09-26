@@ -1,12 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import App from './app'
 import './index.css'
-import RootLayout from './layouts/RootLayout'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RootLayout>
-      <span>Dashboard Page</span> 
-    </RootLayout>
+    <App />
   </StrictMode>,
 )

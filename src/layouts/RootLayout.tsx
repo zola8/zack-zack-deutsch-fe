@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Navbar from './navbar/Navbar';
 import Sidebar from './sidebar/Sidebar';
+import { Outlet } from 'react-router-dom';
 
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
@@ -31,13 +32,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">[ Main Content Area ]</h2>
-              <p className="text-gray-500">The sidebar is currently <strong>{isSidebarOpen ? 'OPEN' : 'CLOSED'}</strong>.</p>
-              <p className="text-sm text-gray-400 mt-4">Click the menu icon in the top left to toggle it.</p>
-            </div>
+            <Outlet />
           </div>
         </main>
+
       </div>
     </div>
   );
