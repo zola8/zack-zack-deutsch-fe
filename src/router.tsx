@@ -17,11 +17,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'about', element: <AboutPage /> },
-      { path: 'translate', element: <TranslationPage /> },
-      { path: 'login', element: <LoginPage /> },
-      { path: 'login/callback', element: <LoginCallbackPage /> },
-      { path: 'me', element: <UserPage /> },
-      
+
       { path: '*', element: <NotFoundPage /> },
     ],
   },
