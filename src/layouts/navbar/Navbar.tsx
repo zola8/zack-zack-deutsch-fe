@@ -2,11 +2,10 @@ import { Menu } from 'lucide-react';
 import NotificationBell from './NotificationBell';
 import UserAvatar from './UserAvatar';
 
-export default function Navbar({ onToggleSidebar, isSidebarOpen }: { onToggleSidebar: () => void, isSidebarOpen: boolean }) {
+export default function Navbar({ onToggleSidebar }: { onToggleSidebar: () => void }) {
   return (
     <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-4 sticky top-0 z-20">
 
-      {/* Left: Toggle Button & Title */}
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
@@ -21,7 +20,6 @@ export default function Navbar({ onToggleSidebar, isSidebarOpen }: { onToggleSid
         </div>
       </div>
 
-      {/* Right: Actions */}
       <div className="flex items-center gap-2">
         <NotificationBell />
         <UserAvatar />
