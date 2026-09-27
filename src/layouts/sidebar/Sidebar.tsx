@@ -1,13 +1,13 @@
 import { X } from 'lucide-react';
-import Logo from './Logo';
 import SidebarNav from './SidebarNav';
+import GermanFlag from '../../components/GermanFlag';
 
 export default function Sidebar({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex flex-col h-full w-[400px] sidebar-bg">
 
       <div className="flex items-center gap-4 p-5 border-b border-white/10">
-        <Logo />
+        <GermanFlag width={48} height={32} />
 
         <div className="flex-1 min-w-0">
           <h1 className="text-xl font-bold text-white tracking-tight leading-tight truncate">

@@ -1,4 +1,4 @@
-import Logo from "../layouts/sidebar/Logo";
+import GermanFlag from "../components/GermanFlag";
 
 
 export default function Login() {
@@ -14,7 +14,7 @@ export default function Login() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
 
           <div className="flex justify-center mb-6">
-            <Logo size="w-16 h-16" />
+            <GermanFlag width={64} height={42} />
           </div>
 
           <h1 className="text-2xl font-bold text-gray-800 mb-1">
