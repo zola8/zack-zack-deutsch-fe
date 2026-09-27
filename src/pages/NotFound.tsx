@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Home } from 'lucide-react';
+import GermanFlag from '../components/GermanFlag';
 
 export default function NotFound() {
   return (
@@ -7,6 +8,10 @@ export default function NotFound() {
       <div className="max-w-md w-full text-center">
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+
+          <div className="flex justify-center mb-6">
+            <GermanFlag />
+          </div>
 
           <h1 className="text-6xl font-bold text-gray-300 mb-4">404</h1>
 
@@ -19,7 +24,7 @@ export default function NotFound() {
 
           <Link
             to="/"
-            className="btn btn-primary gap-2"
+            className="btn btn-neutral gap-2 text-base font-medium text-white hover:bg-gray-700 transition-colors"
           >
             <Home size={18} />
             Go Home
