@@ -38,7 +38,7 @@ export default function Login() {
           </button>
 
           <p className="text-xs text-gray-400 mt-6">
-            This will redirect you to your backend to handle the Google OAuth flow.
+            Login with your Google account.
           </p>
 
         </div>

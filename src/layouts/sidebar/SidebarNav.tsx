@@ -1,18 +1,34 @@
-import { Link } from 'react-router-dom';
-import { LayoutDashboard, BookOpen, Mic, FileText, Settings } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { mainMenuItems, bottomMenuItems } from '../../data/MenuItems';
 
 
 export default function SidebarNav() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
     <>
       <nav className="flex-1 p-5 space-y-2 overflow-y-auto">
-        <SidebarItem to="/page1" icon={<LayoutDashboard size={20} />} label="Dashboard" active />
-        <SidebarItem to="/page2" icon={<BookOpen size={20} />} label="Vocabulary" />
-        <SidebarItem to="/page3" icon={<Mic size={20} />} label="Speaking" />
-        <SidebarItem to="/page4" icon={<FileText size={20} />} label="Grammar" />
+        {mainMenuItems.map((item) => (
+          <SidebarItem
+            key={item.path}
+            to={item.path}
+            icon={item.icon}
+            label={item.label}
+            active={currentPath === item.path}
+          />
+        ))}
 
         <div className="pt-6 mt-6 border-t border-white/10">
-          <SidebarItem to="/page5" icon={<Settings size={20} />} label="Settings" />
+          {bottomMenuItems.map((item) => (
+            <SidebarItem
+              key={item.path}
+              to={item.path}
+              icon={item.icon}
+              label={item.label}
+              active={currentPath === item.path}
+            />
+          ))}
         </div>
       </nav>
     </>
