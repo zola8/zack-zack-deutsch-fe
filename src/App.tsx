@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import LoginCallback from './pages/LoginCallback';
 import NotFound from './pages/NotFound';
 import Page1 from './pages/Page1';
+import Translation from './pages/Translation';
 
 const Page2 = () => <div className="p-4">Vocabulary</div>;
 const Page3 = () => <div className="p-4">Speaking</div>;
@@ -16,6 +17,8 @@ function App() {
         <Route element={<RootLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/login/callback" element={<LoginCallback />} />
+          <Route path="/translation" element={<Translation />} />
+          
           <Route path="/" element={<Page1 />} />
           <Route path="/page1" element={<Page1 />} />
           <Route path="/page2" element={<Page2 />} />

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { mainMenuItems, bottomMenuItems } from '../../data/MenuItems';
+import { mainMenuItems, bottomMenuItems } from './MenuItems';
 
 
 export default function SidebarNav() {
