@@ -3,8 +3,8 @@ import RootLayout from './layouts/RootLayout';
 import Login from './pages/Login';
 import LoginCallback from './pages/LoginCallback';
 import NotFound from './pages/NotFound';
+import Page1 from './pages/Page1';
 
-const Page1 = () => <div className="p-4">Dashboard</div>;
 const Page2 = () => <div className="p-4">Vocabulary</div>;
 const Page3 = () => <div className="p-4">Speaking</div>;
 const Page4 = () => <div className="p-4">Grammar</div>;

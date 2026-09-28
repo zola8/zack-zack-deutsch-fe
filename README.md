@@ -2,6 +2,8 @@
 
 ![readme_stripe.svg](docs/images/readme_stripe.svg)
 
+![Build](https://github.com/zola8/zack-zack-deutsch-fe/actions/workflows/build.yml/badge.svg)
+
 ## 1. Installation
 
 #### Prerequisites
