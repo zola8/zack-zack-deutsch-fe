@@ -9,6 +9,7 @@ export const languages: Language[] = [
   { code: 'hu', name: 'Hungarian' },
   { code: 'vi', name: 'Vietnamese' },
   { code: 'es', name: 'Spanish' },
+  { code: 'cs', name: 'Czech' },
 ];
 
 export const getLanguageByCode = (code: string): Language | undefined => {

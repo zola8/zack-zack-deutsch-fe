@@ -6,6 +6,7 @@ const languageToCountry: Record<string, string> = {
   hu: 'hu', // Hungarian → Hungary
   vi: 'vn', // Vietnamese → Vietnam
   es: 'es', // Spanish → Spain
+  cs: 'cz',
 };
 
 type CountryFlagProps = {

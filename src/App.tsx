@@ -6,9 +6,6 @@ import NotFound from './pages/NotFound';
 import Page1 from './pages/Page1';
 import Translation from './pages/Translation';
 
-const Page2 = () => <div className="p-4">Vocabulary</div>;
-const Page3 = () => <div className="p-4">Speaking</div>;
-const Page4 = () => <div className="p-4">Grammar</div>;
 
 function App() {
   return (
@@ -18,14 +15,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/login/callback" element={<LoginCallback />} />
           <Route path="/translation" element={<Translation />} />
-          
           <Route path="/" element={<Page1 />} />
-          <Route path="/page1" element={<Page1 />} />
-          <Route path="/page2" element={<Page2 />} />
-          <Route path="/page3" element={<Page3 />} />
-          <Route path="/page4" element={<Page4 />} />
-          <Route path="/page5" element={<Login />} />
-
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
