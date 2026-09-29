@@ -3,16 +3,23 @@ type ActionButtonsProps = {
   onSubmit: () => void;
   isSubmitEnabled: boolean;
   hasContent: boolean;
+  isLoading?: boolean;
 };
 
 
-export default function ActionButtons({ onClear, onSubmit, isSubmitEnabled, hasContent }: ActionButtonsProps) {
+export default function ActionButtons({
+  onClear,
+  onSubmit,
+  isSubmitEnabled,
+  hasContent,
+  isLoading = false
+}: ActionButtonsProps) {
   return (
     <div className="flex gap-3 justify-end">
       <button
         onClick={onClear}
         className="btn btn-outline btn-neutral"
-        disabled={!hasContent}
+        disabled={!hasContent || isLoading}
       >
         Clear
       </button>
@@ -21,7 +28,14 @@ export default function ActionButtons({ onClear, onSubmit, isSubmitEnabled, hasC
         className="btn btn-neutral"
         disabled={!isSubmitEnabled}
       >
-        Translate
+        {isLoading ? (
+          <>
+            <span className="loading loading-spinner loading-sm"></span>
+            Translating...
+          </>
+        ) : (
+          'Translate'
+        )}
       </button>
     </div>
   );
