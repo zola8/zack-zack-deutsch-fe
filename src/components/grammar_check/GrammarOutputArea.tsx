@@ -6,6 +6,33 @@ type GrammarOutputAreaProps = {
 };
 
 
+function HighlightedSentence({
+  sentence,
+  offset,
+  errorLength,
+}: {
+  sentence: string;
+  offset: number;
+  errorLength: number;
+}) {
+  const safeOffset = Math.max(0, Math.min(offset, sentence.length));
+  const safeEnd = Math.max(safeOffset, Math.min(safeOffset + errorLength, sentence.length));
+
+  const before = sentence.substring(0, safeOffset);
+  const error = sentence.substring(safeOffset, safeEnd);
+  const after = sentence.substring(safeEnd);
+
+  return (
+    <span>
+      {before}
+      <span className="underline decoration-red-500 decoration-wavy decoration-2 text-red-700 font-medium">
+        {error}
+      </span>
+      {after}
+    </span>
+  );
+}
+
 export default function GrammarOutputArea({ response }: GrammarOutputAreaProps) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -47,8 +74,12 @@ export default function GrammarOutputArea({ response }: GrammarOutputAreaProps) 
                   className="border border-gray-200 rounded-lg p-4 bg-gray-50"
                 >
                   <p className="text-sm text-gray-800 mb-2">{match.message}</p>
-                  <div className="text-xs text-gray-500 mb-2">
-                    In: <span className="italic">"{match.sentence}"</span>
+                  <div className="text-sm text-gray-600 mb-2">
+                    In: <span className="italic">"<HighlightedSentence
+                      sentence={match.sentence}
+                      offset={match.offset}
+                      errorLength={match.error_length}
+                    />"</span>
                   </div>
                   {match.replacements.length > 0 && (
                     <div className="flex flex-wrap gap-2">

@@ -13,7 +13,7 @@ export default function TranslatedTextArea({ value }: TranslatedTextAreaProps) {
         value={value}
         readOnly
         placeholder="Translated text will appear here..."
-        className="textarea textarea-bordered w-full h-40 resize-none bg-gray-50 cursor-text select-text"
+        className="textarea textarea-bordered w-full h-40 resize bg-gray-50 cursor-text select-text"
       />
     </div>
   );

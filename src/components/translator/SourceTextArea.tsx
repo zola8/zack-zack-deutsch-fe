@@ -25,7 +25,7 @@ export default function SourceTextArea({ value, onChange }: SourceTextAreaProps)
           }
         }}
         placeholder="Enter text to translate..."
-        className="textarea textarea-bordered w-full h-40 resize-none"
+        className="textarea textarea-bordered w-full h-40 resize"
         maxLength={MAX_CHARS}
       />
     </div>

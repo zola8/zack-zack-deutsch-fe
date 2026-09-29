@@ -1,4 +1,4 @@
-const MAX_CHARS = 10000;
+const MAX_CHARS = 5000;
 
 
 type GrammarInputAreaProps = {
@@ -26,7 +26,7 @@ export default function GrammarInputArea({ value, onChange }: GrammarInputAreaPr
           }
         }}
         placeholder="Paste or type the text you want to check..."
-        className="textarea textarea-bordered w-full h-40 resize-none"
+        className="textarea textarea-bordered w-full h-40 resize"
         maxLength={MAX_CHARS}
       />
     </div>
