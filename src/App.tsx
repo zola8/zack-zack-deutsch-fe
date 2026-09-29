@@ -5,6 +5,7 @@ import LoginCallback from './pages/LoginCallback';
 import NotFound from './pages/NotFound';
 import Page1 from './pages/Page1';
 import Translation from './pages/Translation';
+import GrammarCheck from './pages/GrammarCheck';
 
 
 function App() {
@@ -12,10 +13,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<RootLayout />}>
+          <Route path="/" element={<Page1 />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/callback" element={<LoginCallback />} />
           <Route path="/translation" element={<Translation />} />
-          <Route path="/" element={<Page1 />} />
+          <Route path="/grammar-check" element={<GrammarCheck />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
