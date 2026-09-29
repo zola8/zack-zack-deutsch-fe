@@ -30,7 +30,7 @@ export const api = {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new ApiError(response.status, errorData.message || `Server error: ${response.status}`);
+        throw new ApiError(response.status, errorData.detail || `Server error: ${response.status}`);
       }
 
       return response.json();
@@ -54,7 +54,7 @@ export const api = {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new ApiError(response.status, errorData.message || `Server error: ${response.status}`);
+        throw new ApiError(response.status, errorData.detail || `Server error: ${response.status}`);
       }
 
       return response.json();

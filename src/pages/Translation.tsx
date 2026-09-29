@@ -14,7 +14,7 @@ export default function Translation() {
   const [fromLang, setFromLang] = useState<string>('en');
   const [toLang, setToLang] = useState<string>('de');
   const [engine, setEngine] = useState<string>('azure');
-  const [formality, setFormality] = useState<string>('less');
+  const [formality, setFormality] = useState<string>('default');
   const [sourceText, setSourceText] = useState<string>('');
   const [translatedText, setTranslatedText] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -42,7 +42,7 @@ export default function Translation() {
       provider: engine,
     };
 
-    if (engine === 'deepl') {
+    if (engine === 'deepl' && formality !== 'default') {
       payload.options = { formality };
     }
 
@@ -50,6 +50,7 @@ export default function Translation() {
       const result = await api.post<{ translated_text: string }>('/api/v1/translate', payload);
       setTranslatedText(result.translated_text);
     } catch (err: unknown) {
+      console.log(err)
       let errorMessage = 'An unexpected error occurred. Please try again.';
 
       if (err instanceof ApiError) {

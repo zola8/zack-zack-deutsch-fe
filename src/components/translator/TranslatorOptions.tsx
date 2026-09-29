@@ -24,6 +24,23 @@ export default function TranslatorOptions({ engine, formality, onFormalityChange
               <input
                 type="radio"
                 name="formality"
+                value="default"
+                checked={formality === 'default'}
+                onChange={(e) => onFormalityChange(e.target.value)}
+                className="radio radio-sm radio-neutral mt-0.5"
+              />
+              <div>
+                <span className="text-sm font-medium text-gray-800">Default</span>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  No formality.
+                </p>
+              </div>
+            </label>
+
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="radio"
+                name="formality"
                 value="less"
                 checked={formality === 'less'}
                 onChange={(e) => onFormalityChange(e.target.value)}
