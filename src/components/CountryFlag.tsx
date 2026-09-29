@@ -3,21 +3,9 @@
 const languageToCountry: Record<string, string> = {
   en: 'gb', // English → United Kingdom
   de: 'de', // German → Germany
-  es: 'es', // Spanish → Spain
-  fr: 'fr', // French → France
-  it: 'it', // Italian → Italy
-  pt: 'pt', // Portuguese → Portugal
-  nl: 'nl', // Dutch → Netherlands
-  pl: 'pl', // Polish → Poland
-  ru: 'ru', // Russian → Russia
-  tr: 'tr', // Turkish → Turkey
-  ar: 'sa', // Arabic → Saudi Arabia
-  zh: 'cn', // Chinese → China
-  ja: 'jp', // Japanese → Japan
-  ko: 'kr', // Korean → South Korea
-  hi: 'in', // Hindi → India
   hu: 'hu', // Hungarian → Hungary
   vi: 'vn', // Vietnamese → Vietnam
+  es: 'es', // Spanish → Spain
 };
 
 type CountryFlagProps = {
