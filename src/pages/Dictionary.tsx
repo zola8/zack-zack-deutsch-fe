@@ -1,32 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Alert from '../components/Alert';
 import LanguageFromToSelector from '../components/LanguageFromToSelector';
+import DictionaryResults from '../components/dictionary/DictionaryResults';
+import DictionarySearchInput from '../components/dictionary/DictionarySearchInput';
 import DictionaryStats from '../components/dictionary/DictionaryStats';
 import SearchModeSelector, { type SearchMode } from '../components/dictionary/SearchModeSelector';
-import DictionarySearchInput from '../components/dictionary/DictionarySearchInput';
-import DictionaryResults from '../components/dictionary/DictionaryResults';
-import Alert from '../components/Alert';
 import { dictionaryCache } from '../components/dictionary/dictionaryCache';
 import { api, ApiError } from '../data/api';
-import type { DictionaryEntry, StatsResponse, SearchResponse, ContainsResponse } from '../data/types/dictionary';
+import type {
+  ContainsResponse,
+  DictionaryEntry,
+  SearchResponse,
+  StatsResponse,
+} from '../data/types/dictionary';
 
-type ResultItem = {
-  entry: DictionaryEntry;
-  rank?: number | null;
-};
 
 export default function Dictionary() {
+  const [stats, setStats] = useState<StatsResponse | null>(dictionaryCache.get());
+  const [statsError, setStatsError] = useState<string | null>(null);
   const [searchMode, setSearchMode] = useState<SearchMode>('search');
   const [query, setQuery] = useState<string>('');
   const [fromLang, setFromLang] = useState<string>('en');
   const [toLang, setToLang] = useState<string>('de');
-  const [results, setResults] = useState<ResultItem[]>([]);
+  const [results, setResults] = useState<DictionaryEntry[]>([]);
   const [resultCount, setResultCount] = useState<number>(0);
   const [searchType, setSearchType] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [stats, setStats] = useState<StatsResponse | null>(dictionaryCache.get());
-  const [statsError, setStatsError] = useState<string | null>(null);
-
 
   useEffect(() => {
     const loadStats = async () => {
@@ -57,7 +57,6 @@ export default function Dictionary() {
 
   const handleModeChange = (mode: SearchMode) => {
     setSearchMode(mode);
-    // Keep query, but clear results
     setResults([]);
     setError('');
   };
@@ -78,16 +77,13 @@ export default function Dictionary() {
         });
         setResults(
           res.results.map((r) => ({
-            entry: {
-              id: r.id,
-              word_from: r.word_from,
-              word_to: r.word_to,
-              word_type: r.word_type,
-              classification: r.classification,
-              lang_from: fromLang,
-              lang_to: toLang,
-            },
-            rank: r.rank,
+            id: r.id,
+            word_from: r.word_from,
+            word_to: r.word_to,
+            word_type: r.word_type,
+            classification: r.classification,
+            lang_from: fromLang,
+            lang_to: toLang,
           }))
         );
         setResultCount(res.count);
@@ -99,9 +95,7 @@ export default function Dictionary() {
           lang_from: fromLang,
           lang_to: toLang,
         });
-        setResults(
-          res.results.map((entry) => ({ entry }))
-        );
+        setResults(res.results);
         setResultCount(res.count);
         setSearchType(res.search_type);
       }
@@ -117,7 +111,6 @@ export default function Dictionary() {
       setIsLoading(false);
     }
   };
-
 
   const handleClear = () => {
     setQuery('');
@@ -144,6 +137,7 @@ export default function Dictionary() {
 
       <div className="flex gap-3 justify-end">
         <button
+          type="button"
           onClick={handleClear}
           className="btn btn-outline btn-neutral"
           disabled={!query && results.length === 0}
@@ -151,7 +145,8 @@ export default function Dictionary() {
           Clear
         </button>
         <button
-          onClick={handleSubmit}
+          type="button"
+          onClick={() => handleSubmit()}
           className="btn btn-neutral"
           disabled={!isSubmitEnabled || isLoading}
         >

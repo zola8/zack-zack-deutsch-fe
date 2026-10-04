@@ -1,24 +1,17 @@
 import type { DictionaryEntry } from "../../data/types/dictionary";
 
+
 type DictionaryResultCardProps = {
   entry: DictionaryEntry;
-  rank?: number | null;
 };
 
-export default function DictionaryResultCard({ entry, rank }: DictionaryResultCardProps) {
+export default function DictionaryResultCard({ entry }: DictionaryResultCardProps) {
   return (
     <div className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-white transition-colors">
-      <div className="flex items-start justify-between gap-3 mb-2">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-lg font-semibold text-gray-800">{entry.word_from}</span>
-          <span className="text-gray-400">→</span>
-          <span className="text-lg font-semibold text-gray-800">{entry.word_to}</span>
-        </div>
-        {rank != null && (
-          <span className="badge badge-sm bg-gray-200 text-gray-600 border-0">
-            #{rank}
-          </span>
-        )}
+      <div className="flex items-center gap-2 flex-wrap mb-2">
+        <span className="text-lg font-semibold text-gray-800">{entry.word_from}</span>
+        <span className="text-gray-400">→</span>
+        <span className="text-lg font-semibold text-gray-800">{entry.word_to}</span>
       </div>
 
       <div className="flex flex-wrap gap-2">
