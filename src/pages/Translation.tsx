@@ -8,6 +8,7 @@ import TranslatedTextArea from '../components/translator/TranslatedTextArea';
 import TranslatorOptions from '../components/translator/TranslatorOptions';
 import UsageLimits from '../components/translator/UsageLimits';
 import { api, ApiError } from '../data/api';
+import type { TranslationRequest, TranslationResponse } from '../data/types/translation';
 
 
 export default function Translation() {
@@ -35,7 +36,7 @@ export default function Translation() {
     setError('');
     setIsLoading(true);
 
-    const payload: Record<string, unknown> = {
+    const payload: TranslationRequest = {
       text: sourceText,
       source_lang: fromLang.toUpperCase(),
       target_lang: toLang.toUpperCase(),
@@ -47,7 +48,7 @@ export default function Translation() {
     }
 
     try {
-      const result = await api.post<{ translated_text: string }>('/api/v1/translate', payload);
+      const result = await api.post<TranslationResponse>('/api/v1/translate', payload);
       setTranslatedText(result.translated_text);
     } catch (err: unknown) {
       console.log(err)
