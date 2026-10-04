@@ -2,9 +2,21 @@ import type { StatsResponse } from "../../data/types/dictionary";
 
 type DictionaryStatsProps = {
   stats: StatsResponse | null;
+  error?: string | null;
 };
 
-export default function DictionaryStats({ stats }: DictionaryStatsProps) {
+export default function DictionaryStats({ stats, error }: DictionaryStatsProps) {
+  if (error) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-sm font-medium text-gray-600 mb-3">Dictionary Overview</h3>
+        <p className="text-xs text-gray-500 italic">
+          Could not load dictionary stats. They will be fetched again on your next visit.
+        </p>
+      </div>
+    );
+  }
+
   if (!stats) {
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">

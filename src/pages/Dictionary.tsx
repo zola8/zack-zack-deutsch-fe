@@ -9,18 +9,14 @@ import { dictionaryCache } from '../components/dictionary/dictionaryCache';
 import { api, ApiError } from '../data/api';
 import type { DictionaryEntry, StatsResponse, SearchResponse, ContainsResponse } from '../data/types/dictionary';
 
-type ContainsField = 'word_from' | 'word_to' | 'classification';
-
 type ResultItem = {
   entry: DictionaryEntry;
   rank?: number | null;
 };
 
 export default function Dictionary() {
-  const [stats, setStats] = useState<StatsResponse | null>(dictionaryCache.get());
   const [searchMode, setSearchMode] = useState<SearchMode>('search');
   const [query, setQuery] = useState<string>('');
-  const [containsField, setContainsField] = useState<ContainsField>('word_from');
   const [fromLang, setFromLang] = useState<string>('en');
   const [toLang, setToLang] = useState<string>('de');
   const [results, setResults] = useState<ResultItem[]>([]);
@@ -28,6 +24,9 @@ export default function Dictionary() {
   const [searchType, setSearchType] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [stats, setStats] = useState<StatsResponse | null>(dictionaryCache.get());
+  const [statsError, setStatsError] = useState<string | null>(null);
+
 
   useEffect(() => {
     const loadStats = async () => {
@@ -41,8 +40,10 @@ export default function Dictionary() {
         const data = await api.get<StatsResponse>('/api/v1/dictionary/stats');
         dictionaryCache.set(data);
         setStats(data);
+        setStatsError(null);
       } catch (err) {
         console.error('Failed to load dictionary stats:', err);
+        setStatsError('Failed to load stats');
       }
     };
 
@@ -56,12 +57,13 @@ export default function Dictionary() {
 
   const handleModeChange = (mode: SearchMode) => {
     setSearchMode(mode);
-    setQuery('');
+    // Keep query, but clear results
     setResults([]);
     setError('');
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e?: React.SubmitEvent) => {
+    e?.preventDefault();
     if (!query.trim()) return;
 
     setError('');
@@ -93,7 +95,7 @@ export default function Dictionary() {
       } else {
         const res = await api.post<ContainsResponse>('/api/v1/dictionary/contains', {
           text: query.trim(),
-          field: containsField,
+          field: 'word_from',
           lang_from: fromLang,
           lang_to: toLang,
         });
@@ -116,6 +118,7 @@ export default function Dictionary() {
     }
   };
 
+
   const handleClear = () => {
     setQuery('');
     setResults([]);
@@ -127,16 +130,17 @@ export default function Dictionary() {
 
   return (
     <div className="space-y-6">
-      <DictionaryStats stats={stats} />
+      <DictionaryStats stats={stats} error={statsError} />
       <LanguageFromToSelector onChange={handleLanguageChange} />
       <SearchModeSelector value={searchMode} onChange={handleModeChange} />
-      <DictionarySearchInput
-        mode={searchMode}
-        value={query}
-        onChange={setQuery}
-        containsField={containsField}
-        onContainsFieldChange={setContainsField}
-      />
+
+      <form onSubmit={handleSubmit}>
+        <DictionarySearchInput
+          mode={searchMode}
+          value={query}
+          onChange={setQuery}
+        />
+      </form>
 
       <div className="flex gap-3 justify-end">
         <button
