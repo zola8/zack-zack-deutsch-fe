@@ -48,10 +48,10 @@ export default function UserAvatar() {
           <p className="text-xs text-gray-500 truncate">{user?.email}</p>
         </li>
         <li>
-          <Link to="/profile" className="hover:bg-gray-100"> Profile </Link>
+          <Link to="/user/profile" className="hover:bg-gray-100"> Profile </Link>
         </li>
         <li>
-          <Link to="/settings" className="hover:bg-gray-100"> Settings </Link>
+          <Link to="/user/settings" className="hover:bg-gray-100"> Settings </Link>
         </li>
         <li>
           <a className="hover:bg-gray-100 text-red-600" onClick={logout}>
