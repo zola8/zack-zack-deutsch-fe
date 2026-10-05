@@ -16,14 +16,6 @@ export class ApiError extends Error {
   }
 }
 
-async function handleResponse<T>(response: Response): Promise<T> {
-  if (response.status === 204) {
-    return undefined as T;
-  }
-  return response.json();
-}
-
-
 export const api = {
   async post<T>(path: string, body: unknown): Promise<T> {
     try {
@@ -39,7 +31,7 @@ export const api = {
         throw new ApiError(response.status, errorData.detail || `Server error: ${response.status}`);
       }
 
-      return handleResponse<T>(response);
+      return response.json();
     } catch (error) {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
         throw new ApiError(0, 'Cannot connect to server. Please check your connection.');
@@ -63,7 +55,7 @@ export const api = {
         throw new ApiError(response.status, errorData.detail || `Server error: ${response.status}`);
       }
 
-      return handleResponse<T>(response);
+      return response.json();
     } catch (error) {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
         throw new ApiError(0, 'Cannot connect to server. Please check your connection.');

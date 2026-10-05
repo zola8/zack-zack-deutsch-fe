@@ -47,16 +47,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
 
-  const logout = async () => {
-    try {
-      await api.get('/api/v1/auth/logout');
-    } catch (error) {
-      console.error('Logout failed:', error);
-    } finally {
-      setUser(null);
-      window.location.href = '/';
-    }
-  };
+const logout = async () => {
+  try {
+    await api.get('/api/v1/auth/logout');
+  } catch (error) {
+    console.error('Logout failed:', error);
+  } finally {
+    setUser(null);
+    window.location.href = '/';
+  }
+};
 
   const refreshUser = async () => {
     await checkAuth();
