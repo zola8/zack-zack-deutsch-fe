@@ -4,7 +4,6 @@ if (!BACKEND_URL) {
   throw new Error('VITE_BACKEND_URL is not defined in environment variables');
 }
 
-
 export class ApiError extends Error {
   status: number;
   message: string;
@@ -15,6 +14,13 @@ export class ApiError extends Error {
     this.message = message;
     this.name = 'ApiError';
   }
+}
+
+async function handleResponse<T>(response: Response): Promise<T> {
+  if (response.status === 204) {
+    return undefined as T;
+  }
+  return response.json();
 }
 
 
@@ -33,7 +39,7 @@ export const api = {
         throw new ApiError(response.status, errorData.detail || `Server error: ${response.status}`);
       }
 
-      return response.json();
+      return handleResponse<T>(response);
     } catch (error) {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
         throw new ApiError(0, 'Cannot connect to server. Please check your connection.');
@@ -57,7 +63,7 @@ export const api = {
         throw new ApiError(response.status, errorData.detail || `Server error: ${response.status}`);
       }
 
-      return response.json();
+      return handleResponse<T>(response);
     } catch (error) {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
         throw new ApiError(0, 'Cannot connect to server. Please check your connection.');

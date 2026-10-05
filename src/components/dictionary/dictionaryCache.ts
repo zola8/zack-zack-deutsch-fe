@@ -1,7 +1,7 @@
 import type { StatsResponse } from "../../data/types/dictionary";
 
 const CACHE_KEY = 'dictionary_stats';
-const CACHE_DURATION_MS = 10 * 24 * 60 * 60 * 1000; // 10 days
+const CACHE_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 
 type CachedStats = {

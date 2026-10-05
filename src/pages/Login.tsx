@@ -2,9 +2,9 @@ import GermanFlag from "../components/GermanFlag";
 
 
 export default function Login() {
+  
   const handleLoginClick = () => {
-    console.log("Login button clicked!");
-    window.location.href = "http://localhost:8080/api/v1/auth/google/login";
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/google/login`;
   };
 
   return (
