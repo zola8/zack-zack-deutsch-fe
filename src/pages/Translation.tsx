@@ -2,7 +2,7 @@ import { useState } from 'react';
 import LanguageFromToSelector from '../components/LanguageFromToSelector';
 import ActionButtons from '../components/translator/ActionButtons';
 import EngineSelector from '../components/translator/EngineSelector';
-import ErrorBanner from '../components/translator/ErrorBanner';
+import ErrorBanner from '../components/ErrorBanner';
 import SourceTextArea from '../components/translator/SourceTextArea';
 import TranslatedTextArea from '../components/translator/TranslatedTextArea';
 import TranslatorOptions from '../components/translator/TranslatorOptions';

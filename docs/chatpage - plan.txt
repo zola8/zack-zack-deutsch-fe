@@ -1,0 +1,48 @@
+┌─────────────────────────────────────────────────────────────────┐
+│  ┌──────────────┐  ┌─────────────────────────────────────────┐ │
+│  │              │  │  Chat Area                              │ │
+│  │   Talking    │  │  [Options: voice, speed, ...]           │ │
+│  │   Avatar     │  │                                         │ │
+│  │   Image      │  │  Messages...                            │ │
+│  │              │  │                                         │ │
+│  │              │  │  ┌───────────────────────────┐ [Send]   │ │
+│  │              │  │  │ Input area              │ │ [Mic]    │ │
+│  │              │  │  └───────────────────────────┘ [Clear]  │ │
+│  │              │  ├─────────────────────────────────────────┤ │
+│  │              │  │  Log Area                               │ │
+│  │              │  │  Transcript / history                   │ │
+│  │              │  │                                         │ │
+│  │              │  │  [Export] [Copy] [Clear log]            │ │
+│  └──────────────┘  └─────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+
+
+# Sidebar with Date Accordion
+
+┌─────────────────────────────────────────────────────────────┐
+│ ┌──────────┐ ┌────────────────────────────────────────────┐ │
+│ │ Today    │ │ Chat Area                                  │ │
+│ │  ├ Chat1 │ │                                            │ │
+│ │  └ Chat2 │ │ Messages...                                │ │
+│ │          │ │                                            │ │
+│ │ Yesterday│ │                                            │ │
+│ │  ├ Chat3 │ │                                            │ │
+│ │  └ Chat4 │ │                                            │ │
+│ │          │ │                                            │ │
+│ │ Oct 5    │ │                                            │ │
+│ │  └ Chat5 │ └────────────────────────────────────────────┘ │
+│ │          │                                                │
+│ │ [+ New]  │                                                │
+│ └──────────┘                                                │
+└─────────────────────────────────────────────────────────────┘
+
+
+# Naming Convention
+
+Term                    Usage     
+---------------         ------------------------
+Conversation            The overall feature / a single session
+ConversationSession     One renamable chat session
+ConversationMessage     Individual message
+ConversationGroup       Date-based grouping ("Today", "Yesterday")
+
